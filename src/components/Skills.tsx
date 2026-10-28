@@ -19,29 +19,35 @@ export default function Skills() {
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(138,43,226,0.08),transparent_55%)]"
       />
       <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-          <SectionHeading
-            eyebrow="03 — Skills"
-            title="Tech constellation"
-            description="An interactive map of languages, frameworks, and infrastructure I ship with daily."
-          />
-          <div className="mb-12 flex gap-2 self-start sm:self-auto">
-            {(["graph", "bars"] as const).map((m) => (
-              <button
-                key={m}
-                type="button"
-                onClick={() => setMode(m)}
-                className={cn(
-                  "rounded-md border px-3 py-1.5 font-mono text-xs capitalize transition",
-                  mode === m
-                    ? "border-cyan/50 bg-cyan/15 text-cyan"
-                    : "border-white/10 text-zinc-400 hover:text-cyan",
-                )}
-              >
-                {m}
-              </button>
-            ))}
-          </div>
+        <SectionHeading
+          eyebrow="03 — Skills"
+          title="Tech constellation"
+          description="An interactive map of languages, frameworks, and infrastructure I ship with daily."
+        />
+
+        <div
+          role="tablist"
+          aria-label="Skills view mode"
+          className="mb-8 flex gap-2"
+        >
+          {(["graph", "bars"] as const).map((m) => (
+            <button
+              key={m}
+              type="button"
+              role="tab"
+              aria-selected={mode === m}
+              data-cursor="interactive"
+              onClick={() => setMode(m)}
+              className={cn(
+                "rounded-md border px-4 py-2 font-mono text-xs capitalize transition",
+                mode === m
+                  ? "border-cyan/50 bg-cyan/15 text-cyan shadow-[0_0_18px_rgba(0,240,255,0.2)]"
+                  : "border-white/10 text-zinc-400 hover:border-cyan/30 hover:text-cyan",
+              )}
+            >
+              {m}
+            </button>
+          ))}
         </div>
 
         {mode === "graph" ? (

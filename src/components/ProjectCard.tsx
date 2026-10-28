@@ -8,7 +8,8 @@ import {
   useTransform,
 } from "framer-motion";
 import { ExternalLink, X } from "lucide-react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import type { Project } from "@/data/portfolio";
 import { GitHubIcon } from "./icons";
 
@@ -20,6 +21,25 @@ type Props = {
 export default function ProjectCard({ project, index }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [open]);
 
   const mx = useMotionValue(0.5);
   const my = useMotionValue(0.5);
@@ -49,6 +69,86 @@ export default function ProjectCard({ project, index }: Props) {
     my.set(0.5);
   };
 
+  const dialog =
+    open && mounted
+      ? createPortal(
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label={`${project.title} details`}
+            className="fixed inset-0 z-[90] flex items-end justify-center bg-black/70 p-4 backdrop-blur-sm sm:items-center"
+            onClick={() => setOpen(false)}
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 24, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              className="relative max-h-[85vh] w-full max-w-lg overflow-y-auto rounded-2xl border border-cyan/25 bg-[#0d0d16] p-6 shadow-[0_0_50px_rgba(0,240,255,0.12)]"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                type="button"
+                aria-label="Close"
+                onClick={() => setOpen(false)}
+                className="absolute top-4 right-4 text-zinc-400 hover:text-cyan"
+              >
+                <X size={18} />
+              </button>
+              <p className="font-mono text-[10px] tracking-[0.2em] text-neon-purple uppercase">
+                {project.category}
+              </p>
+              <h3 className="mt-2 font-display text-2xl text-white">
+                {project.title}
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-zinc-400">
+                {project.longDescription}
+              </p>
+              <div className="mt-5 grid grid-cols-3 gap-2">
+                {project.metrics.map((m) => (
+                  <div
+                    key={m.label}
+                    className="rounded-lg border border-white/10 bg-white/[0.03] px-2 py-3 text-center"
+                  >
+                    <p className="font-display text-lg text-cyan">{m.value}</p>
+                    <p className="font-mono text-[10px] tracking-wide text-zinc-500 uppercase">
+                      {m.label}
+                    </p>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-5 flex flex-wrap gap-1.5">
+                {project.stack.map((tag) => (
+                  <span
+                    key={tag}
+                    className="rounded border border-cyan/20 bg-cyan/5 px-2 py-1 font-mono text-[11px] text-cyan"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <div className="mt-6 flex gap-2">
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex flex-1 items-center justify-center gap-2 rounded-md bg-cyan py-2.5 font-mono text-sm font-semibold text-void"
+                >
+                  <ExternalLink size={14} /> Live demo
+                </a>
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex flex-1 items-center justify-center gap-2 rounded-md border border-neon-purple/40 bg-neon-purple/15 py-2.5 font-mono text-sm text-white"
+                >
+                  <GitHubIcon size={14} /> GitHub
+                </a>
+              </div>
+            </motion.div>
+          </div>,
+          document.body,
+        )
+      : null;
+
   return (
     <>
       <motion.article
@@ -61,14 +161,12 @@ export default function ProjectCard({ project, index }: Props) {
           rotateX,
           rotateY,
           transformStyle: "preserve-3d",
-          perspective: 900,
         }}
         onPointerMove={onMove}
         onPointerLeave={onLeave}
         data-cursor="interactive"
         className="group relative rounded-2xl border border-white/10 bg-white/[0.03] p-[1px]"
       >
-        {/* Electric border trace */}
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition duration-500 group-hover:opacity-100"
@@ -147,82 +245,7 @@ export default function ProjectCard({ project, index }: Props) {
           </div>
         </div>
       </motion.article>
-
-      {open && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label={`${project.title} details`}
-          className="fixed inset-0 z-[80] flex items-end justify-center bg-black/70 p-4 backdrop-blur-sm sm:items-center"
-          onClick={() => setOpen(false)}
-        >
-          <motion.div
-            initial={{ opacity: 0, y: 24, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            className="relative max-h-[85vh] w-full max-w-lg overflow-y-auto rounded-2xl border border-cyan/25 bg-[#0d0d16] p-6 shadow-[0_0_50px_rgba(0,240,255,0.12)]"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              type="button"
-              aria-label="Close"
-              onClick={() => setOpen(false)}
-              className="absolute top-4 right-4 text-zinc-400 hover:text-cyan"
-            >
-              <X size={18} />
-            </button>
-            <p className="font-mono text-[10px] tracking-[0.2em] text-neon-purple uppercase">
-              {project.category}
-            </p>
-            <h3 className="mt-2 font-display text-2xl text-white">
-              {project.title}
-            </h3>
-            <p className="mt-3 text-sm leading-relaxed text-zinc-400">
-              {project.longDescription}
-            </p>
-            <div className="mt-5 grid grid-cols-3 gap-2">
-              {project.metrics.map((m) => (
-                <div
-                  key={m.label}
-                  className="rounded-lg border border-white/10 bg-white/[0.03] px-2 py-3 text-center"
-                >
-                  <p className="font-display text-lg text-cyan">{m.value}</p>
-                  <p className="font-mono text-[10px] tracking-wide text-zinc-500 uppercase">
-                    {m.label}
-                  </p>
-                </div>
-              ))}
-            </div>
-            <div className="mt-5 flex flex-wrap gap-1.5">
-              {project.stack.map((tag) => (
-                <span
-                  key={tag}
-                  className="rounded border border-cyan/20 bg-cyan/5 px-2 py-1 font-mono text-[11px] text-cyan"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-            <div className="mt-6 flex gap-2">
-              <a
-                href={project.liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex flex-1 items-center justify-center gap-2 rounded-md bg-cyan py-2.5 font-mono text-sm font-semibold text-void"
-              >
-                <ExternalLink size={14} /> Live demo
-              </a>
-              <a
-                href={project.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex flex-1 items-center justify-center gap-2 rounded-md border border-neon-purple/40 bg-neon-purple/15 py-2.5 font-mono text-sm text-white"
-              >
-                <GitHubIcon size={14} /> GitHub
-              </a>
-            </div>
-          </motion.div>
-        </div>
-      )}
+      {dialog}
     </>
   );
 }
