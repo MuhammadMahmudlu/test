@@ -1,0 +1,91 @@
+@import "tailwindcss";
+
+:root {
+  --void: #0a0a0f;
+  --cyan: #00f0ff;
+  --neon-purple: #8a2be2;
+  --foreground: #e8eef7;
+  --muted: #9aa3b5;
+}
+
+@theme inline {
+  --color-void: var(--void);
+  --color-cyan: var(--cyan);
+  --color-neon-purple: var(--neon-purple);
+  --color-background: var(--void);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
+  --font-mono: var(--font-mono);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  background: var(--void);
+  color: var(--foreground);
+  font-family: var(--font-body), system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(0, 240, 255, 0.28);
+  color: #fff;
+}
+
+/* Custom cursor space on fine pointers */
+@media (pointer: fine) {
+  body.cursor-glow {
+    cursor: none;
+  }
+
+  body.cursor-glow a,
+  body.cursor-glow button,
+  body.cursor-glow input,
+  body.cursor-glow textarea,
+  body.cursor-glow [data-cursor="interactive"] {
+    cursor: none;
+  }
+}
+
+/* Subtle noise overlay atmosphere */
+.noise-overlay {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.font-display {
+  font-family: var(--font-display), var(--font-body), sans-serif;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a0f;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #00f0ff55, #8a2be255);
+  border-radius: 999px;
+}
