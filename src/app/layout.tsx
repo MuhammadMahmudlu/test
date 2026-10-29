@@ -1,35 +1,35 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Mono, Plus_Jakarta_Sans, Sora } from "next/font/google";
+import { Bebas_Neue, DM_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const display = Sora({
+const display = Bebas_Neue({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: ["500", "600", "700", "800"],
+  weight: "400",
 });
 
-const body = Plus_Jakarta_Sans({
+const body = DM_Sans({
   variable: "--font-body",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 });
 
-const mono = IBM_Plex_Mono({
+const mono = JetBrains_Mono({
   variable: "--font-mono",
   subsets: ["latin"],
   weight: ["400", "500"],
 });
 
 export const metadata: Metadata = {
-  title: "Muhammad Elshan — Full-Stack Developer",
+  title: "Muhammad Elshan — Full-Stack Developer & Software Architect",
   description:
-    "Modern portfolio of Muhammad Elshan, Full-Stack Developer. Projects, skills, experience, and contact.",
+    "Bold editorial portfolio of Muhammad Elshan. Full-stack products, architecture, and craft.",
   keywords: [
     "Muhammad Elshan",
     "Full-Stack Developer",
+    "Software Architect",
     "Next.js",
     "Portfolio",
-    "React",
   ],
 };
 
@@ -39,9 +39,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${display.variable} ${body.variable} ${mono.variable} h-full antialiased`}
     >
-      <body className="cursor-glow min-h-full bg-surface text-ink">
-        {children}
-      </body>
+      <body className="cursor-glow min-h-full bg-void text-ink">{children}</body>
     </html>
   );
 }

@@ -14,7 +14,6 @@ export default function CursorRing() {
   useEffect(() => {
     const fine = window.matchMedia("(pointer: fine)").matches;
     if (!fine) return;
-
     setVisible(true);
 
     const onMove = (e: PointerEvent) => {
@@ -44,25 +43,20 @@ export default function CursorRing() {
     <motion.div
       aria-hidden
       className="pointer-events-none fixed left-0 top-0 z-[100]"
-      style={{
-        x: sx,
-        y: sy,
-        translateX: "-50%",
-        translateY: "-50%",
-      }}
+      style={{ x: sx, y: sy, translateX: "-50%", translateY: "-50%" }}
     >
       <motion.div
         animate={{
-          width: hovering ? 48 : 26,
-          height: hovering ? 48 : 26,
+          width: hovering ? 48 : 24,
+          height: hovering ? 48 : 24,
           borderColor: hovering
-            ? "rgba(99,102,241,0.9)"
-            : "rgba(15,23,42,0.35)",
-          backgroundColor: hovering
-            ? "rgba(99,102,241,0.08)"
-            : "rgba(255,255,255,0.15)",
+            ? "rgba(239,68,68,0.95)"
+            : "rgba(220,38,38,0.55)",
+          boxShadow: hovering
+            ? "0 0 22px rgba(220,38,38,0.55)"
+            : "0 0 12px rgba(220,38,38,0.25)",
         }}
-        className="rounded-full border shadow-[0_0_0_1px_rgba(255,255,255,0.4)] backdrop-blur-[1px]"
+        className="rounded-full border bg-crimson/5"
         transition={{ type: "spring", stiffness: 380, damping: 28 }}
       />
     </motion.div>

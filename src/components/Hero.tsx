@@ -1,74 +1,63 @@
 "use client";
 
-import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
-import { ArrowDown, Sparkles } from "lucide-react";
-import { useCallback } from "react";
+import { motion } from "framer-motion";
+import { ArrowDown } from "lucide-react";
 import { profile } from "@/data/portfolio";
-import SoftGeometry from "./SoftGeometry";
-import TerminalIntro from "./TerminalIntro";
 
 export default function Hero() {
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const onMove = useCallback(
-    (e: React.MouseEvent<HTMLElement>) => {
-      const { left, top } = e.currentTarget.getBoundingClientRect();
-      mouseX.set(e.clientX - left);
-      mouseY.set(e.clientY - top);
-    },
-    [mouseX, mouseY],
-  );
-
-  const spotlight = useMotionTemplate`radial-gradient(560px circle at ${mouseX}px ${mouseY}px, rgba(99,102,241,0.12), transparent 55%)`;
-
   return (
     <section
       id="top"
-      onMouseMove={onMove}
-      className="relative flex min-h-[100svh] items-center overflow-hidden pt-20 pb-16"
+      className="relative flex min-h-[100svh] items-end overflow-hidden pt-24 pb-12 sm:items-center sm:pb-16"
     >
-      <div aria-hidden className="soft-grid pointer-events-none absolute inset-0 z-[1] opacity-70" />
-      <motion.div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 z-[1]"
-        style={{ background: spotlight }}
-      />
+      {/* Massive editorial background type */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -top-20 left-1/2 z-[1] h-80 w-[70%] -translate-x-1/2 bg-[radial-gradient(ellipse_at_center,rgba(99,102,241,0.16),transparent_70%)] blur-2xl"
+        className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center overflow-hidden"
+      >
+        <motion.p
+          initial={{ opacity: 0, scale: 1.04 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.1 }}
+          className="font-display editorial-outline select-none text-[clamp(4.5rem,22vw,18rem)] leading-[0.8] tracking-tight whitespace-nowrap"
+        >
+          MUHAMMAD
+          <br />
+          ELSHAN
+        </motion.p>
+      </div>
+
+      <div
+        aria-hidden
+        className="pointer-events-none absolute top-1/3 right-0 h-[50%] w-[45%] bg-[radial-gradient(ellipse_at_center,rgba(220,38,38,0.22),transparent_70%)] blur-2xl"
       />
 
-      <div className="relative z-10 mx-auto grid w-full max-w-6xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:gap-8 lg:px-8">
+      <div className="relative z-10 mx-auto grid w-full max-w-6xl gap-10 px-4 sm:px-6 lg:grid-cols-[1.2fr_0.8fr] lg:items-end lg:gap-8 lg:px-8">
         <div>
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mb-4 inline-flex items-center gap-2 rounded-full border border-line bg-surface-elevated/80 px-3 py-1 text-xs font-semibold tracking-wide text-accent shadow-sm"
+            className="mb-4 font-mono text-[11px] tracking-[0.28em] text-crimson uppercase"
           >
-            <Sparkles size={14} />
             {profile.title}
           </motion.p>
 
           <motion.h1
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.08 }}
-            className="font-display text-[clamp(2.6rem,8vw,5rem)] leading-[1.02] font-bold text-ink"
+            transition={{ delay: 0.08, duration: 0.65 }}
+            className="font-display text-[clamp(3.2rem,10vw,6.5rem)] leading-[0.88] text-ink"
           >
-            {profile.name.split(" ")[0]}
+            Muhammad
             <br />
-            <span className="bg-gradient-to-r from-accent via-accent-deep to-violet-500 bg-clip-text text-transparent">
-              {profile.name.split(" ").slice(1).join(" ")}
-            </span>
+            <span className="text-crimson">Elshan</span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.18 }}
-            className="mt-5 max-w-lg text-base leading-relaxed text-ink-muted sm:text-lg"
+            transition={{ delay: 0.18 }}
+            className="mt-5 max-w-md text-base leading-relaxed text-ink-muted sm:text-lg"
           >
             {profile.tagline}
           </motion.p>
@@ -76,40 +65,66 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.28 }}
-            className="mt-8 flex flex-wrap items-center gap-3"
+            transition={{ delay: 0.28 }}
+            className="mt-8 flex flex-wrap gap-3"
           >
             <a
               href="#projects"
-              className="group inline-flex items-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-semibold text-white shadow-[0_14px_30px_-14px_rgba(99,102,241,0.9)] transition hover:bg-accent-deep"
+              className="group inline-flex items-center gap-2 bg-crimson px-5 py-3 text-sm font-bold tracking-wide text-white uppercase transition hover:bg-crimson-bright"
             >
-              View projects
-              <ArrowDown
-                size={16}
-                className="transition group-hover:translate-y-0.5"
-              />
+              View work
+              <ArrowDown size={16} className="transition group-hover:translate-y-0.5" />
             </a>
             <a
               href="#contact"
-              className="inline-flex items-center rounded-full border border-line bg-surface-elevated px-5 py-3 text-sm font-semibold text-ink shadow-sm transition hover:border-accent/40 hover:text-accent"
+              className="inline-flex items-center border border-line px-5 py-3 text-sm font-bold tracking-wide text-ink uppercase transition hover:border-crimson hover:text-crimson"
             >
               Contact
             </a>
           </motion.div>
-
-          <div className="mt-10">
-            <TerminalIntro />
-          </div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.94 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.25 }}
-          className="relative mx-auto flex w-full justify-center"
+        <motion.aside
+          initial={{ opacity: 0, x: 24 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.25 }}
+          className="relative border border-line bg-charcoal/80 p-5 backdrop-blur-sm sm:p-6"
         >
-          <SoftGeometry />
-        </motion.div>
+          {/* Portrait cutout placeholder framed by type */}
+          <div className="relative mb-6 overflow-hidden border border-line bg-elevated">
+            <div className="aspect-[4/5] w-full bg-[linear-gradient(160deg,#141414_0%,#0a0a0a_45%,#1a0505_100%)]">
+              <div className="absolute inset-0 flex items-end justify-center">
+                <div className="relative h-[88%] w-[70%]">
+                  <div className="absolute inset-x-[18%] top-[8%] h-[28%] rounded-full bg-gradient-to-b from-neutral-500 to-neutral-700" />
+                  <div className="absolute inset-x-[8%] top-[32%] h-[70%] rounded-t-[42%] bg-gradient-to-b from-neutral-600 via-neutral-800 to-[#1a0808]" />
+                  <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(5,5,5,0.85),transparent_45%)]" />
+                </div>
+              </div>
+              <p className="absolute bottom-3 left-3 font-mono text-[10px] tracking-[0.2em] text-crimson uppercase">
+                Portrait · Placeholder
+              </p>
+            </div>
+          </div>
+
+          <ul className="grid grid-cols-2 gap-4">
+            {profile.stats.map((stat, i) => (
+              <motion.li
+                key={stat.label}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.35 + i * 0.06 }}
+                className="border-t border-line pt-3"
+              >
+                <p className="font-display text-3xl text-crimson sm:text-4xl">
+                  {stat.value}
+                </p>
+                <p className="mt-1 font-mono text-[10px] tracking-[0.16em] text-ink-muted uppercase">
+                  {stat.label}
+                </p>
+              </motion.li>
+            ))}
+          </ul>
+        </motion.aside>
       </div>
     </section>
   );

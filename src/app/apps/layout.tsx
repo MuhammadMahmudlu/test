@@ -7,18 +7,18 @@ export default function AppsLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-svh bg-surface text-ink">
-      <header className="sticky top-0 z-40 border-b border-line/80 bg-surface/90 backdrop-blur-xl">
+    <div className="min-h-svh bg-void text-ink">
+      <header className="sticky top-0 z-40 border-b border-line bg-void/90 backdrop-blur-xl">
         <div className="mx-auto flex h-14 max-w-3xl items-center justify-between px-4 sm:px-6">
           <Link
             href="/#projects"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-ink-muted transition hover:text-accent"
+            className="inline-flex items-center gap-2 text-sm font-semibold tracking-wide text-ink-muted uppercase transition hover:text-crimson"
           >
-            <ArrowLeft size={16} /> Back to portfolio
+            <ArrowLeft size={16} /> Portfolio
           </Link>
           <Link
             href="/apps"
-            className="text-sm font-semibold text-accent hover:underline"
+            className="text-sm font-bold tracking-wide text-crimson uppercase hover:underline"
           >
             All apps
           </Link>

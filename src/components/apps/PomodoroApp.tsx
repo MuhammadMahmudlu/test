@@ -28,11 +28,14 @@ export default function PomodoroApp() {
   const total = PRESETS[mode];
   const progress = 1 - remaining / total;
 
-  const reset = useCallback((next: Mode = mode) => {
-    setMode(next);
-    setRemaining(PRESETS[next]);
-    setRunning(false);
-  }, [mode]);
+  const reset = useCallback(
+    (next: Mode = mode) => {
+      setMode(next);
+      setRemaining(PRESETS[next]);
+      setRunning(false);
+    },
+    [mode],
+  );
 
   useEffect(() => {
     if (!running) return;
@@ -66,17 +69,17 @@ export default function PomodoroApp() {
   const offset = c * (1 - progress);
 
   return (
-    <div className="rounded-3xl border border-line bg-surface-elevated p-6 shadow-[0_20px_50px_-30px_rgba(15,23,42,0.35)] sm:p-8">
+    <div className="border border-line bg-charcoal p-6 sm:p-8">
       <div className="mb-6 flex flex-wrap gap-2">
         {(Object.keys(PRESETS) as Mode[]).map((m) => (
           <button
             key={m}
             type="button"
             onClick={() => reset(m)}
-            className={`rounded-full px-3.5 py-1.5 text-xs font-semibold capitalize transition ${
+            className={`px-3.5 py-1.5 text-xs font-bold tracking-wide uppercase transition ${
               mode === m
-                ? "bg-accent text-white"
-                : "border border-line text-ink-muted hover:border-accent/40 hover:text-accent"
+                ? "bg-crimson text-white"
+                : "border border-line text-ink-muted hover:border-crimson hover:text-crimson"
             }`}
           >
             {m === "short" ? "Short break" : m === "long" ? "Long break" : "Focus"}
@@ -86,20 +89,13 @@ export default function PomodoroApp() {
 
       <div className="relative mx-auto mb-6 flex h-56 w-56 items-center justify-center">
         <svg className="-rotate-90" width="220" height="220" viewBox="0 0 120 120">
+          <circle cx="60" cy="60" r={r} fill="none" stroke="#1f1f1f" strokeWidth="8" />
           <circle
             cx="60"
             cy="60"
             r={r}
             fill="none"
-            stroke="#e2e8f0"
-            strokeWidth="8"
-          />
-          <circle
-            cx="60"
-            cy="60"
-            r={r}
-            fill="none"
-            stroke="#6366f1"
+            stroke="#dc2626"
             strokeWidth="8"
             strokeLinecap="round"
             strokeDasharray={c}
@@ -108,7 +104,7 @@ export default function PomodoroApp() {
           />
         </svg>
         <div className="absolute text-center">
-          <p className="font-display text-5xl font-bold tabular-nums text-ink">
+          <p className="font-display text-5xl tabular-nums text-ink">
             {format(remaining)}
           </p>
           <p className="mt-1 font-mono text-[10px] tracking-wider text-ink-muted uppercase">
@@ -121,7 +117,7 @@ export default function PomodoroApp() {
         <button
           type="button"
           onClick={() => setRunning((v) => !v)}
-          className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-white shadow-[0_12px_28px_-14px_rgba(99,102,241,0.9)] hover:bg-accent-deep"
+          className="inline-flex items-center gap-2 bg-crimson px-5 py-2.5 text-sm font-bold text-white uppercase hover:bg-crimson-bright"
         >
           {running ? <Pause size={16} /> : <Play size={16} />}
           {running ? "Pause" : "Start"}
@@ -129,15 +125,11 @@ export default function PomodoroApp() {
         <button
           type="button"
           onClick={() => reset(mode)}
-          className="inline-flex items-center gap-2 rounded-full border border-line px-4 py-2.5 text-sm font-semibold text-ink-muted hover:border-accent/40 hover:text-accent"
+          className="inline-flex items-center gap-2 border border-line px-4 py-2.5 text-sm font-bold text-ink-muted uppercase hover:border-crimson hover:text-crimson"
         >
           <RotateCcw size={16} /> Reset
         </button>
       </div>
-      <p className="mt-4 text-center text-xs text-ink-muted">
-        Tip: press <kbd className="rounded border border-line bg-slate-50 px-1">Space</kbd> to
-        play/pause
-      </p>
     </div>
   );
 }

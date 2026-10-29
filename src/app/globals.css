@@ -1,27 +1,28 @@
 @import "tailwindcss";
 
 :root {
-  --surface: #f8fafc;
-  --surface-elevated: #ffffff;
-  --ink: #0f172a;
-  --ink-muted: #64748b;
-  --accent: #6366f1;
-  --accent-soft: #e0e7ff;
-  --accent-deep: #4f46e5;
-  --line: #e2e8f0;
-  --ring: rgba(99, 102, 241, 0.35);
+  --void: #050505;
+  --charcoal: #0a0a0a;
+  --ink: #f5f5f5;
+  --ink-muted: #a3a3a3;
+  --crimson: #dc2626;
+  --crimson-bright: #ef4444;
+  --crimson-deep: #991b1b;
+  --line: #1f1f1f;
+  --elevated: #111111;
 }
 
 @theme inline {
-  --color-surface: var(--surface);
-  --color-surface-elevated: var(--surface-elevated);
+  --color-void: var(--void);
+  --color-charcoal: var(--charcoal);
   --color-ink: var(--ink);
   --color-ink-muted: var(--ink-muted);
-  --color-accent: var(--accent);
-  --color-accent-soft: var(--accent-soft);
-  --color-accent-deep: var(--accent-deep);
+  --color-crimson: var(--crimson);
+  --color-crimson-bright: var(--crimson-bright);
+  --color-crimson-deep: var(--crimson-deep);
   --color-line: var(--line);
-  --color-background: var(--surface);
+  --color-elevated: var(--elevated);
+  --color-background: var(--void);
   --color-foreground: var(--ink);
   --font-sans: var(--font-body);
   --font-display: var(--font-display);
@@ -47,15 +48,15 @@ html {
 }
 
 body {
-  background: var(--surface);
+  background: var(--void);
   color: var(--ink);
   font-family: var(--font-body), system-ui, sans-serif;
   overflow-x: hidden;
 }
 
 ::selection {
-  background: rgba(99, 102, 241, 0.22);
-  color: var(--ink);
+  background: rgba(220, 38, 38, 0.35);
+  color: #fff;
 }
 
 @media (pointer: fine) {
@@ -74,41 +75,31 @@ body {
 
 .font-display {
   font-family: var(--font-display), var(--font-body), sans-serif;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
 }
 
-@keyframes aurora-spin {
-  to {
-    transform: rotate(360deg);
-  }
+.editorial-outline {
+  -webkit-text-stroke: 1px rgba(245, 245, 245, 0.18);
+  color: transparent;
 }
 
-.aurora-spin {
-  animation: aurora-spin 18s linear infinite;
-}
-
-.aurora-spin-rev {
-  animation: aurora-spin 22s linear infinite reverse;
-}
-
-.soft-grid {
-  background-image:
-    linear-gradient(to right, rgba(15, 23, 42, 0.035) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(15, 23, 42, 0.035) 1px, transparent 1px);
-  background-size: 48px 48px;
-  mask-image: radial-gradient(ellipse at center, black 35%, transparent 75%);
+.noise-overlay {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 ::-webkit-scrollbar {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #050505;
 }
 ::-webkit-scrollbar-thumb {
-  background: #c7d2fe;
+  background: linear-gradient(180deg, #dc2626, #7f1d1d);
   border-radius: 999px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #a5b4fc;
 }

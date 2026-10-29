@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { navLinks, profile } from "@/data/portfolio";
 import { cn } from "@/lib/utils";
@@ -11,7 +11,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => setScrolled(window.scrollY > 20);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -29,24 +29,21 @@ export default function Navbar() {
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-300",
         scrolled
-          ? "border-b border-line/80 bg-surface/85 shadow-[0_8px_30px_-18px_rgba(15,23,42,0.2)] backdrop-blur-xl"
+          ? "border-b border-line bg-void/90 backdrop-blur-xl"
           : "bg-transparent",
       )}
     >
       <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <a
-          href="#top"
-          className="font-display text-lg font-bold tracking-tight text-ink"
-        >
-          <span className="text-accent">M</span>Elshan
+        <a href="#top" className="font-display text-2xl tracking-wide text-ink">
+          ME<span className="text-crimson">.</span>
         </a>
 
-        <ul className="hidden items-center gap-8 md:flex">
+        <ul className="hidden items-center gap-7 md:flex">
           {navLinks.map((link) => (
             <li key={link.href}>
               <a
                 href={link.href}
-                className="text-sm font-medium text-ink-muted transition-colors hover:text-accent"
+                className="text-xs font-semibold tracking-[0.18em] text-ink-muted uppercase transition hover:text-crimson"
               >
                 {link.label}
               </a>
@@ -55,9 +52,9 @@ export default function Navbar() {
           <li>
             <a
               href="#contact"
-              className="rounded-full bg-accent px-4 py-2 text-sm font-semibold text-white shadow-[0_10px_24px_-12px_rgba(99,102,241,0.8)] transition hover:bg-accent-deep"
+              className="rounded-sm border border-crimson bg-crimson px-4 py-2 text-xs font-bold tracking-[0.16em] text-white uppercase transition hover:bg-crimson-bright"
             >
-              Hire me
+              Hire
             </a>
           </li>
         </ul>
@@ -65,7 +62,7 @@ export default function Navbar() {
         <button
           type="button"
           aria-label={open ? "Close menu" : "Open menu"}
-          className="text-ink md:hidden"
+          className="text-crimson md:hidden"
           onClick={() => setOpen((v) => !v)}
         >
           {open ? <X size={22} /> : <Menu size={22} />}
@@ -78,7 +75,7 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
-            className="border-b border-line bg-surface-elevated/95 backdrop-blur-xl md:hidden"
+            className="border-b border-line bg-charcoal md:hidden"
           >
             <ul className="flex flex-col gap-1 px-4 py-4">
               {navLinks.map((link) => (
@@ -86,15 +83,13 @@ export default function Navbar() {
                   <a
                     href={link.href}
                     onClick={() => setOpen(false)}
-                    className="block rounded-xl px-3 py-3 text-sm font-medium text-ink hover:bg-accent-soft hover:text-accent"
+                    className="block px-3 py-3 text-sm font-semibold tracking-wide text-ink uppercase hover:text-crimson"
                   >
                     {link.label}
                   </a>
                 </li>
               ))}
-              <li className="px-3 pt-2 text-xs text-ink-muted">
-                {profile.title}
-              </li>
+              <li className="px-3 pt-2 text-xs text-ink-muted">{profile.title}</li>
             </ul>
           </motion.div>
         )}

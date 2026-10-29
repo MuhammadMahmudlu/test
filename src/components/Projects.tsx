@@ -57,9 +57,9 @@ export default function Projects() {
     <section id="projects" className="relative scroll-mt-20 py-24 sm:py-28">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          eyebrow="02 — Projects"
-          title="Apps & builds"
-          description="Live mini-apps from this repo, plus public GitHub projects synced dynamically."
+          eyebrow="01 — Selected"
+          title="Projects"
+          description="Live mini-apps from this repo plus public GitHub work — synced dynamically."
         />
 
         <div
@@ -75,10 +75,10 @@ export default function Projects() {
               type="button"
               onClick={() => setActive(f)}
               className={cn(
-                "rounded-full border px-3.5 py-1.5 text-xs font-semibold tracking-wide transition",
+                "border px-3.5 py-1.5 text-xs font-bold tracking-[0.14em] uppercase transition",
                 active === f
-                  ? "border-accent bg-accent text-white shadow-[0_10px_24px_-14px_rgba(99,102,241,0.9)]"
-                  : "border-line bg-surface-elevated text-ink-muted hover:border-accent/40 hover:text-accent",
+                  ? "border-crimson bg-crimson text-white"
+                  : "border-line text-ink-muted hover:border-crimson hover:text-crimson",
               )}
             >
               {f}
@@ -91,14 +91,14 @@ export default function Projects() {
             {Array.from({ length: 6 }).map((_, i) => (
               <div
                 key={i}
-                className="h-56 animate-pulse rounded-3xl border border-line bg-slate-100"
+                className="h-56 animate-pulse border border-line bg-elevated"
               />
             ))}
           </div>
         )}
 
         {error && !loading && (
-          <p className="rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
+          <p className="border border-crimson/40 bg-crimson/10 px-4 py-3 text-sm text-crimson-bright">
             Could not load projects: {error}
           </p>
         )}
@@ -124,10 +124,6 @@ export default function Projects() {
               ))}
             </AnimatePresence>
           </motion.div>
-        )}
-
-        {!loading && !error && filtered.length === 0 && (
-          <p className="text-sm text-ink-muted">No projects in this category.</p>
         )}
       </div>
     </section>

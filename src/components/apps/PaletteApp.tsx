@@ -28,15 +28,11 @@ const STOPS = [
 ];
 
 export default function PaletteApp() {
-  const [hue, setHue] = useState(239);
+  const [hue, setHue] = useState(0);
   const [copied, setCopied] = useState<string | null>(null);
 
   const swatches = useMemo(
-    () =>
-      STOPS.map((stop) => ({
-        ...stop,
-        hex: hslToHex(hue, stop.s, stop.l),
-      })),
+    () => STOPS.map((stop) => ({ ...stop, hex: hslToHex(hue, stop.s, stop.l) })),
     [hue],
   );
 
@@ -56,7 +52,7 @@ export default function PaletteApp() {
 
   return (
     <div className="space-y-5">
-      <div className="rounded-3xl border border-line bg-surface-elevated p-5 shadow-[0_20px_50px_-30px_rgba(15,23,42,0.35)] sm:p-6">
+      <div className="border border-line bg-charcoal p-5 sm:p-6">
         <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
           <label className="flex flex-1 flex-col gap-2 text-sm font-medium text-ink">
             Base hue · {hue}°
@@ -66,13 +62,13 @@ export default function PaletteApp() {
               max={360}
               value={hue}
               onChange={(e) => setHue(Number(e.target.value))}
-              className="accent-accent w-full"
+              className="w-full accent-crimson"
             />
           </label>
           <button
             type="button"
             onClick={() => setHue(Math.floor(Math.random() * 360))}
-            className="inline-flex items-center gap-2 rounded-full border border-line px-3 py-2 text-xs font-semibold text-ink-muted hover:border-accent/40 hover:text-accent"
+            className="inline-flex items-center gap-2 border border-line px-3 py-2 text-xs font-bold text-ink-muted uppercase hover:border-crimson hover:text-crimson"
           >
             <RefreshCw size={14} /> Random
           </button>
@@ -84,10 +80,10 @@ export default function PaletteApp() {
               key={s.name}
               type="button"
               onClick={() => copy(s.hex, s.hex)}
-              className="group overflow-hidden rounded-2xl border border-line text-left transition hover:-translate-y-0.5 hover:shadow-md"
+              className="group overflow-hidden border border-line text-left transition hover:-translate-y-0.5"
             >
               <div className="h-16" style={{ background: s.hex }} />
-              <div className="bg-white px-2.5 py-2">
+              <div className="bg-elevated px-2.5 py-2">
                 <p className="font-mono text-[10px] text-ink-muted">{s.name}</p>
                 <p className="font-mono text-xs font-semibold text-ink">
                   {copied === s.hex ? "Copied" : s.hex}
@@ -98,21 +94,21 @@ export default function PaletteApp() {
         </div>
       </div>
 
-      <div className="rounded-3xl border border-line bg-slate-950 p-4 text-slate-100 shadow-lg">
+      <div className="border border-line bg-void p-4">
         <div className="mb-2 flex items-center justify-between">
-          <p className="font-mono text-[10px] tracking-wider text-slate-400 uppercase">
+          <p className="font-mono text-[10px] tracking-wider text-ink-muted uppercase">
             CSS variables
           </p>
           <button
             type="button"
             onClick={() => copy(`:root {\n${cssVars}\n}`, "css")}
-            className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-2.5 py-1 text-[11px] font-semibold text-white hover:bg-white/15"
+            className="inline-flex items-center gap-1.5 border border-line px-2.5 py-1 text-[11px] font-bold text-ink uppercase hover:border-crimson hover:text-crimson"
           >
             {copied === "css" ? <Check size={12} /> : <Copy size={12} />}
             {copied === "css" ? "Copied" : "Copy"}
           </button>
         </div>
-        <pre className="overflow-x-auto font-mono text-xs leading-relaxed text-indigo-200">
+        <pre className="overflow-x-auto font-mono text-xs leading-relaxed text-crimson-bright">
           {`:root {\n${cssVars}\n}`}
         </pre>
       </div>

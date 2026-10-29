@@ -10,12 +10,12 @@ type Props = {
 
 export default function SectionHeading({ eyebrow, title, description }: Props) {
   return (
-    <div className="mb-12 max-w-2xl">
+    <div className="mb-12 max-w-3xl">
       <motion.p
         initial={{ opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
-        className="mb-3 font-mono text-xs tracking-[0.22em] text-accent uppercase"
+        className="mb-3 font-mono text-xs tracking-[0.3em] text-crimson uppercase"
       >
         {eyebrow}
       </motion.p>
@@ -23,19 +23,18 @@ export default function SectionHeading({ eyebrow, title, description }: Props) {
         initial={{ opacity: 0, y: 18 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
-        transition={{ delay: 0.05 }}
-        className="font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl md:text-5xl"
+        className="font-display text-5xl leading-[0.9] text-ink sm:text-6xl md:text-7xl"
       >
         {title}
-        <span className="text-accent">.</span>
+        <span className="text-crimson">.</span>
       </motion.h2>
       {description && (
         <motion.p
           initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ delay: 0.1 }}
-          className="mt-4 text-base leading-relaxed text-ink-muted sm:text-lg"
+          transition={{ delay: 0.08 }}
+          className="mt-4 max-w-xl text-base leading-relaxed text-ink-muted sm:text-lg"
         >
           {description}
         </motion.p>

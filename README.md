@@ -1,42 +1,23 @@
 # Muhammad Elshan — Portfolio
 
-Clean, modern personal portfolio built with **Next.js (App Router)**, **Tailwind CSS**, **Framer Motion**, and a subtle **Three.js** hero accent.
-
-## Stack
-
-- Next.js 16 + React 19 + TypeScript
-- Tailwind CSS v4
-- Framer Motion (micro-interactions, tilt cards, scroll timeline)
-- Canvas particle network + soft geometric Three.js scene
-- Lucide icons
+Bold **dark & crimson editorial** portfolio built with Next.js, Tailwind CSS, and Framer Motion.
 
 ## Aesthetic
 
-Light / corporate: surface `#f8fafc`, ink `#0f172a`, indigo accent `#6366f1`, soft elevation shadows.
+- Void `#050505` / charcoal `#0a0a0a`
+- Crimson accents `#dc2626` / `#ef4444`
+- Display: Bebas Neue · Body: DM Sans
 
 ## Sections
 
-1. **Hero** — cursor spotlight, typing terminal, soft 3D geometry  
-2. **About** — expertise pillars  
-3. **Projects** — filterable 3D-tilt cards with detail popups  
-4. **Skills** — animated proficiency badges  
-5. **Experience** — scroll-driven timeline  
-6. **Contact** — form, copy-email, social links  
+Hero (massive typography + stats) · Projects (dynamic) · Education & Skills · Work Process · Contact
 
-## Develop
+## Mini apps
 
-```bash
-npm install
-npm run dev
-```
+`/apps/pomodoro` · `/apps/palette` · `/apps/json-lab` · `/apps/tip-split`
 
-Open [http://localhost:3000](http://localhost:3000).
-
-## Build
+Projects load dynamically from `/api/projects` (mini-apps + public GitHub repos).
 
 ```bash
-npm run build
-npm start
+npm install && npm run dev
 ```
-
-Update contact/social links and project URLs in `src/data/portfolio.ts`.

@@ -23,9 +23,7 @@ export default function ProjectCard({ project, index }: Props) {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     if (!open) return;
@@ -51,10 +49,9 @@ export default function ProjectCard({ project, index }: Props) {
     stiffness: 220,
     damping: 22,
   });
-
   const glareX = useTransform(mx, [0, 1], [0, 100]);
   const glareY = useTransform(my, [0, 1], [0, 100]);
-  const glare = useMotionTemplate`radial-gradient(circle at ${glareX}% ${glareY}%, rgba(99,102,241,0.16), transparent 55%)`;
+  const glare = useMotionTemplate`radial-gradient(circle at ${glareX}% ${glareY}%, rgba(239,68,68,0.18), transparent 55%)`;
 
   const onMove = (e: React.PointerEvent) => {
     const el = ref.current;
@@ -64,10 +61,7 @@ export default function ProjectCard({ project, index }: Props) {
     my.set((e.clientY - rect.top) / rect.height);
   };
 
-  const onLeave = () => {
-    mx.set(0.5);
-    my.set(0.5);
-  };
+  const external = project.liveUrl.startsWith("http");
 
   const dialog =
     open && mounted
@@ -76,29 +70,27 @@ export default function ProjectCard({ project, index }: Props) {
             role="dialog"
             aria-modal="true"
             aria-label={`${project.title} details`}
-            className="fixed inset-0 z-[90] flex items-end justify-center bg-slate-900/40 p-4 backdrop-blur-sm sm:items-center"
+            className="fixed inset-0 z-[90] flex items-end justify-center bg-black/75 p-4 backdrop-blur-sm sm:items-center"
             onClick={() => setOpen(false)}
           >
             <motion.div
               initial={{ opacity: 0, y: 24, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              className="relative max-h-[85vh] w-full max-w-lg overflow-y-auto rounded-3xl border border-line bg-surface-elevated p-6 shadow-[0_30px_80px_-28px_rgba(15,23,42,0.45)]"
+              className="relative max-h-[85vh] w-full max-w-lg overflow-y-auto border border-line bg-charcoal p-6 shadow-[0_0_60px_rgba(220,38,38,0.15)]"
               onClick={(e) => e.stopPropagation()}
             >
               <button
                 type="button"
                 aria-label="Close"
                 onClick={() => setOpen(false)}
-                className="absolute top-4 right-4 text-ink-muted hover:text-accent"
+                className="absolute top-4 right-4 text-ink-muted hover:text-crimson"
               >
                 <X size={18} />
               </button>
-              <p className="font-mono text-[10px] tracking-[0.2em] text-accent uppercase">
+              <p className="font-mono text-[10px] tracking-[0.22em] text-crimson uppercase">
                 {project.category}
               </p>
-              <h3 className="mt-2 font-display text-2xl text-ink">
-                {project.title}
-              </h3>
+              <h3 className="mt-2 font-display text-4xl text-ink">{project.title}</h3>
               <p className="mt-3 text-sm leading-relaxed text-ink-muted">
                 {project.longDescription}
               </p>
@@ -106,9 +98,9 @@ export default function ProjectCard({ project, index }: Props) {
                 {project.metrics.map((m) => (
                   <div
                     key={m.label}
-                    className="rounded-2xl border border-line bg-slate-50 px-2 py-3 text-center"
+                    className="border border-line bg-elevated px-2 py-3 text-center"
                   >
-                    <p className="font-display text-lg text-accent">{m.value}</p>
+                    <p className="font-display text-2xl text-crimson">{m.value}</p>
                     <p className="font-mono text-[10px] tracking-wide text-ink-muted uppercase">
                       {m.label}
                     </p>
@@ -119,7 +111,7 @@ export default function ProjectCard({ project, index }: Props) {
                 {project.stack.map((tag) => (
                   <span
                     key={tag}
-                    className="rounded-full border border-accent/20 bg-accent-soft px-2.5 py-1 font-mono text-[11px] text-accent-deep"
+                    className="border border-crimson/30 bg-crimson/10 px-2.5 py-1 font-mono text-[11px] text-crimson-bright"
                   >
                     {tag}
                   </span>
@@ -128,18 +120,18 @@ export default function ProjectCard({ project, index }: Props) {
               <div className="mt-6 flex gap-2">
                 <a
                   href={project.liveUrl}
-                  {...(project.liveUrl.startsWith("http")
+                  {...(external
                     ? { target: "_blank", rel: "noopener noreferrer" }
                     : {})}
-                  className="inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-accent py-2.5 text-sm font-semibold text-white"
+                  className="inline-flex flex-1 items-center justify-center gap-2 bg-crimson py-2.5 text-sm font-bold text-white uppercase"
                 >
-                  <ExternalLink size={14} /> Live demo
+                  <ExternalLink size={14} /> Live
                 </a>
                 <a
                   href={project.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border border-line bg-white py-2.5 text-sm font-semibold text-ink"
+                  className="inline-flex flex-1 items-center justify-center gap-2 border border-line py-2.5 text-sm font-bold text-ink uppercase"
                 >
                   <GitHubIcon size={14} /> GitHub
                 </a>
@@ -159,66 +151,61 @@ export default function ProjectCard({ project, index }: Props) {
         viewport={{ once: true, margin: "-40px" }}
         transition={{ delay: Math.min(index * 0.06, 0.3) }}
         whileHover={{ y: -6 }}
-        style={{
-          rotateX,
-          rotateY,
-          transformStyle: "preserve-3d",
-        }}
+        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
         onPointerMove={onMove}
-        onPointerLeave={onLeave}
+        onPointerLeave={() => {
+          mx.set(0.5);
+          my.set(0.5);
+        }}
         data-cursor="interactive"
-        className="group relative rounded-3xl border border-line bg-surface-elevated p-5 shadow-[0_14px_40px_-28px_rgba(15,23,42,0.35)] transition hover:border-accent/35 hover:shadow-[0_24px_50px_-24px_rgba(99,102,241,0.4)] sm:p-6"
+        className="group relative border border-line bg-charcoal p-5 transition hover:border-crimson/60 hover:shadow-[0_0_40px_rgba(220,38,38,0.18)] sm:p-6"
       >
         <motion.div
           aria-hidden
-          className="pointer-events-none absolute inset-0 rounded-3xl opacity-0 transition group-hover:opacity-100"
+          className="pointer-events-none absolute inset-0 opacity-0 transition group-hover:opacity-100"
           style={{ background: glare }}
         />
-
         <div className="relative" style={{ transform: "translateZ(24px)" }}>
           <div className="mb-3 flex items-center justify-between gap-3">
-            <span className="font-mono text-[10px] tracking-[0.2em] text-accent uppercase">
+            <span className="font-mono text-[10px] tracking-[0.22em] text-crimson uppercase">
               {project.category}
             </span>
             {project.featured && (
-              <span className="rounded-full bg-accent-soft px-2.5 py-0.5 font-mono text-[10px] font-medium text-accent-deep">
+              <span className="border border-crimson/40 bg-crimson/15 px-2 py-0.5 font-mono text-[10px] text-crimson-bright">
                 Featured
               </span>
             )}
           </div>
-
-          <h3 className="font-display text-xl text-ink sm:text-2xl">
+          <h3 className="font-display text-3xl text-ink sm:text-4xl">
             {project.title}
           </h3>
           <p className="mt-2 text-sm leading-relaxed text-ink-muted">
             {project.description}
           </p>
-
           <div className="mt-4 flex flex-wrap gap-1.5">
             {project.stack.slice(0, 4).map((tag) => (
               <span
                 key={tag}
-                className="rounded-full border border-line bg-slate-50 px-2.5 py-0.5 font-mono text-[10px] text-slate-600"
+                className="border border-line bg-elevated px-2 py-0.5 font-mono text-[10px] text-ink-muted"
               >
                 {tag}
               </span>
             ))}
           </div>
-
-          <div className="mt-5 flex flex-wrap items-center gap-2">
+          <div className="mt-5 flex flex-wrap gap-2">
             <button
               type="button"
               onClick={() => setOpen(true)}
-              className="rounded-full bg-accent px-3.5 py-1.5 text-xs font-semibold text-white transition hover:bg-accent-deep"
+              className="bg-crimson px-3.5 py-1.5 text-xs font-bold tracking-wide text-white uppercase hover:bg-crimson-bright"
             >
               Details
             </button>
             <a
               href={project.liveUrl}
-              {...(project.liveUrl.startsWith("http")
+              {...(external
                 ? { target: "_blank", rel: "noopener noreferrer" }
                 : {})}
-              className="inline-flex items-center gap-1.5 rounded-full border border-line px-3 py-1.5 text-xs font-medium text-ink-muted transition hover:border-accent/40 hover:text-accent"
+              className="inline-flex items-center gap-1.5 border border-line px-3 py-1.5 text-xs font-semibold text-ink-muted uppercase hover:border-crimson hover:text-crimson"
             >
               <ExternalLink size={12} /> Live
             </a>
@@ -226,7 +213,7 @@ export default function ProjectCard({ project, index }: Props) {
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-full border border-line px-3 py-1.5 text-xs font-medium text-ink-muted transition hover:border-accent/40 hover:text-accent"
+              className="inline-flex items-center gap-1.5 border border-line px-3 py-1.5 text-xs font-semibold text-ink-muted uppercase hover:border-crimson hover:text-crimson"
             >
               <GitHubIcon size={12} /> GitHub
             </a>

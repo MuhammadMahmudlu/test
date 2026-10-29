@@ -20,7 +20,7 @@ export default function TipSplitApp() {
 
   return (
     <div className="grid gap-5 sm:grid-cols-[1.1fr_0.9fr]">
-      <div className="space-y-4 rounded-3xl border border-line bg-surface-elevated p-5 shadow-[0_20px_50px_-30px_rgba(15,23,42,0.35)] sm:p-6">
+      <div className="space-y-4 border border-line bg-charcoal p-5 sm:p-6">
         <label className="block text-sm font-medium text-ink">
           Bill amount
           <input
@@ -29,7 +29,7 @@ export default function TipSplitApp() {
             step="0.01"
             value={bill}
             onChange={(e) => setBill(e.target.value)}
-            className="mt-1.5 w-full rounded-xl border border-line bg-white px-3 py-2.5 text-ink outline-none focus:border-accent focus:shadow-[0_0_0_3px_rgba(99,102,241,0.15)]"
+            className="mt-1.5 w-full border border-line bg-void px-3 py-2.5 text-ink outline-none focus:border-crimson"
           />
         </label>
 
@@ -41,7 +41,7 @@ export default function TipSplitApp() {
             max={40}
             value={tip}
             onChange={(e) => setTip(Number(e.target.value))}
-            className="accent-accent mt-2 w-full"
+            className="mt-2 w-full accent-crimson"
           />
           <div className="mt-2 flex flex-wrap gap-2">
             {[10, 15, 18, 20].map((p) => (
@@ -49,9 +49,9 @@ export default function TipSplitApp() {
                 key={p}
                 type="button"
                 onClick={() => setTip(p)}
-                className={`rounded-full px-3 py-1 text-xs font-semibold ${
+                className={`px-3 py-1 text-xs font-bold ${
                   tip === p
-                    ? "bg-accent text-white"
+                    ? "bg-crimson text-white"
                     : "border border-line text-ink-muted"
                 }`}
               >
@@ -67,21 +67,23 @@ export default function TipSplitApp() {
             type="number"
             min={1}
             value={people}
-            onChange={(e) => setPeople(Math.max(1, Number(e.target.value) || 1))}
-            className="mt-1.5 w-full rounded-xl border border-line bg-white px-3 py-2.5 text-ink outline-none focus:border-accent focus:shadow-[0_0_0_3px_rgba(99,102,241,0.15)]"
+            onChange={(e) =>
+              setPeople(Math.max(1, Number(e.target.value) || 1))
+            }
+            className="mt-1.5 w-full border border-line bg-void px-3 py-2.5 text-ink outline-none focus:border-crimson"
           />
         </label>
       </div>
 
-      <div className="rounded-3xl bg-gradient-to-br from-accent to-violet-600 p-6 text-white shadow-[0_20px_50px_-24px_rgba(99,102,241,0.7)]">
-        <p className="text-sm text-indigo-100">Tip amount</p>
-        <p className="font-display text-3xl font-bold">{money(calc.tipAmount)}</p>
+      <div className="border border-crimson/40 bg-gradient-to-br from-crimson-deep to-crimson p-6 text-white">
+        <p className="text-sm text-red-100">Tip amount</p>
+        <p className="font-display text-4xl">{money(calc.tipAmount)}</p>
         <div className="my-5 h-px bg-white/20" />
-        <p className="text-sm text-indigo-100">Total</p>
-        <p className="font-display text-3xl font-bold">{money(calc.total)}</p>
+        <p className="text-sm text-red-100">Total</p>
+        <p className="font-display text-4xl">{money(calc.total)}</p>
         <div className="my-5 h-px bg-white/20" />
-        <p className="text-sm text-indigo-100">Per person</p>
-        <p className="font-display text-4xl font-bold">{money(calc.perPerson)}</p>
+        <p className="text-sm text-red-100">Per person</p>
+        <p className="font-display text-5xl">{money(calc.perPerson)}</p>
       </div>
     </div>
   );
