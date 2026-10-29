@@ -2,10 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import {
-  projects,
-  type ProjectCategory,
-} from "@/data/portfolio";
+import { projects, type ProjectCategory } from "@/data/portfolio";
 import { cn } from "@/lib/utils";
 import ProjectCard from "./ProjectCard";
 import SectionHeading from "./SectionHeading";
@@ -35,7 +32,7 @@ export default function Projects() {
         <SectionHeading
           eyebrow="02 — Projects"
           title="Selected builds"
-          description="Interactive case studies with live demos, repos, and stack depth — tilt a card to feel the voltage."
+          description="Interactive case studies with live demos, repos, and stack depth — tilt a card to feel the craft."
         />
 
         <div
@@ -51,10 +48,10 @@ export default function Projects() {
               type="button"
               onClick={() => setActive(f)}
               className={cn(
-                "rounded-md border px-3 py-1.5 font-mono text-xs tracking-wide transition",
+                "rounded-full border px-3.5 py-1.5 text-xs font-semibold tracking-wide transition",
                 active === f
-                  ? "border-cyan/50 bg-cyan/15 text-cyan shadow-[0_0_18px_rgba(0,240,255,0.2)]"
-                  : "border-white/10 text-zinc-400 hover:border-cyan/30 hover:text-cyan",
+                  ? "border-accent bg-accent text-white shadow-[0_10px_24px_-14px_rgba(99,102,241,0.9)]"
+                  : "border-line bg-surface-elevated text-ink-muted hover:border-accent/40 hover:text-accent",
               )}
             >
               {f}

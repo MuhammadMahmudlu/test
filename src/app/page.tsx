@@ -12,7 +12,6 @@ export default function Home() {
   return (
     <>
       <ClientEffects />
-      <div aria-hidden className="noise-overlay" />
       <Navbar />
       <main className="relative z-10">
         <Hero />

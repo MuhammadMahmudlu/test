@@ -31,19 +31,15 @@ const pillars = [
 export default function About() {
   return (
     <section id="about" className="relative scroll-mt-20 py-24 sm:py-28">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-y-0 right-0 w-1/2 bg-[radial-gradient(ellipse_at_right,rgba(0,240,255,0.07),transparent_60%)]"
-      />
       <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="01 — About"
-          title="Engineer with a neon pulse"
+          title="Engineer with product taste"
           description="I turn complex product ideas into cohesive, high-signal experiences — code that feels intentional under the cursor."
         />
 
         <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="space-y-5 text-base leading-relaxed text-zinc-300 sm:text-lg">
+          <div className="space-y-5 text-base leading-relaxed text-slate-600 sm:text-lg">
             {profile.about.map((para, i) => (
               <motion.p
                 key={i}
@@ -59,7 +55,7 @@ export default function About() {
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              className="font-mono text-sm text-cyan/80"
+              className="font-mono text-sm text-accent"
             >
               Based in {profile.location} · Open to remote collaborations
             </motion.p>
@@ -75,17 +71,13 @@ export default function About() {
                 transition={{ delay: 0.05 * i }}
                 whileHover={{ y: -4 }}
                 data-cursor="interactive"
-                className="group relative overflow-hidden rounded-xl border border-white/8 bg-white/[0.03] p-5 transition hover:border-cyan/35 hover:shadow-[0_0_30px_rgba(0,240,255,0.08)]"
+                className="rounded-2xl border border-line bg-surface-elevated p-5 shadow-[0_12px_40px_-28px_rgba(15,23,42,0.35)] transition hover:border-accent/30 hover:shadow-[0_18px_44px_-24px_rgba(99,102,241,0.35)]"
               >
-                <div
-                  aria-hidden
-                  className="absolute -top-10 -right-10 h-24 w-24 rounded-full bg-cyan/10 opacity-0 blur-2xl transition group-hover:opacity-100"
-                />
-                <item.icon className="mb-3 text-cyan" size={22} />
-                <h3 className="mb-1.5 font-display text-lg text-white">
+                <item.icon className="mb-3 text-accent" size={22} />
+                <h3 className="mb-1.5 font-display text-lg text-ink">
                   {item.title}
                 </h3>
-                <p className="text-sm leading-relaxed text-zinc-400">
+                <p className="text-sm leading-relaxed text-ink-muted">
                   {item.text}
                 </p>
               </motion.div>

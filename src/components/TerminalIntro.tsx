@@ -9,10 +9,10 @@ const LINES = [
   { prefix: "$", text: "cat ./stack.json" },
   {
     prefix: ">",
-    text: '{ "frontend": "Next.js", "backend": "Node", "motion": "∞" }',
+    text: '{ "frontend": "Next.js", "backend": "Node", "craft": "high" }',
   },
-  { prefix: "$", text: "echo \"Building luminous products\"" },
-  { prefix: ">", text: "Building luminous products" },
+  { prefix: "$", text: 'echo "Building polished products"' },
+  { prefix: ">", text: "Building polished products" },
   { prefix: "$", text: "ready --hire" },
   { prefix: ">", text: "Status: ONLINE  ●" },
 ];
@@ -47,18 +47,18 @@ export default function TerminalIntro() {
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.35, duration: 0.6 }}
-      className="w-full max-w-xl overflow-hidden rounded-xl border border-cyan/25 bg-void/80 font-mono shadow-[0_0_40px_rgba(0,240,255,0.12)] backdrop-blur-md"
+      className="w-full max-w-xl overflow-hidden rounded-2xl border border-line bg-surface-elevated font-mono shadow-[0_20px_50px_-24px_rgba(15,23,42,0.25)]"
       data-cursor="interactive"
     >
-      <div className="flex items-center gap-2 border-b border-cyan/15 bg-white/[0.03] px-4 py-2.5">
+      <div className="flex items-center gap-2 border-b border-line bg-slate-50 px-4 py-2.5">
         <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
         <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
         <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
-        <span className="ml-3 text-[11px] tracking-wider text-zinc-500">
+        <span className="ml-3 text-[11px] tracking-wider text-ink-muted">
           elshan@portfolio — zsh
         </span>
       </div>
-      <div className="space-y-1.5 p-4 text-[12px] leading-relaxed text-cyan/90 sm:text-[13px]">
+      <div className="space-y-1.5 p-4 text-[12px] leading-relaxed text-slate-700 sm:text-[13px]">
         {LINES.slice(0, lineIdx + 1).map((line, i) => {
           const isActive = i === lineIdx && !done;
           const shown = isActive ? line.text.slice(0, charIdx) : line.text;
@@ -66,19 +66,19 @@ export default function TerminalIntro() {
             <p key={`${line.prefix}-${i}`} className="flex gap-2">
               <span
                 className={
-                  line.prefix === "$" ? "text-neon-purple" : "text-zinc-500"
+                  line.prefix === "$" ? "text-accent font-medium" : "text-slate-400"
                 }
               >
                 {line.prefix}
               </span>
               <span
                 className={
-                  line.text.includes("ONLINE") ? "text-emerald-400" : undefined
+                  line.text.includes("ONLINE") ? "text-emerald-600" : undefined
                 }
               >
                 {shown}
                 {isActive && (
-                  <span className="ml-0.5 inline-block h-3.5 w-1.5 animate-pulse bg-cyan align-middle" />
+                  <span className="ml-0.5 inline-block h-3.5 w-1.5 animate-pulse bg-accent align-middle" />
                 )}
               </span>
             </p>

@@ -4,7 +4,7 @@ import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
 import { ArrowDown, Sparkles } from "lucide-react";
 import { useCallback } from "react";
 import { profile } from "@/data/portfolio";
-import NeonScene from "./NeonScene";
+import SoftGeometry from "./SoftGeometry";
 import TerminalIntro from "./TerminalIntro";
 
 export default function Hero() {
@@ -20,7 +20,7 @@ export default function Hero() {
     [mouseX, mouseY],
   );
 
-  const spotlight = useMotionTemplate`radial-gradient(520px circle at ${mouseX}px ${mouseY}px, rgba(0,240,255,0.14), transparent 55%)`;
+  const spotlight = useMotionTemplate`radial-gradient(560px circle at ${mouseX}px ${mouseY}px, rgba(99,102,241,0.12), transparent 55%)`;
 
   return (
     <section
@@ -28,15 +28,15 @@ export default function Hero() {
       onMouseMove={onMove}
       className="relative flex min-h-[100svh] items-center overflow-hidden pt-20 pb-16"
     >
+      <div aria-hidden className="soft-grid pointer-events-none absolute inset-0 z-[1] opacity-70" />
       <motion.div
         aria-hidden
         className="pointer-events-none absolute inset-0 z-[1]"
         style={{ background: spotlight }}
       />
-
       <div
         aria-hidden
-        className="pointer-events-none absolute -top-24 left-1/2 z-[1] h-72 w-[70%] -translate-x-1/2 bg-[radial-gradient(ellipse_at_center,rgba(138,43,226,0.22),transparent_70%)] blur-2xl"
+        className="pointer-events-none absolute -top-20 left-1/2 z-[1] h-80 w-[70%] -translate-x-1/2 bg-[radial-gradient(ellipse_at_center,rgba(99,102,241,0.16),transparent_70%)] blur-2xl"
       />
 
       <div className="relative z-10 mx-auto grid w-full max-w-6xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:gap-8 lg:px-8">
@@ -45,9 +45,9 @@ export default function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="mb-4 inline-flex items-center gap-2 font-mono text-xs tracking-[0.22em] text-cyan uppercase"
+            className="mb-4 inline-flex items-center gap-2 rounded-full border border-line bg-surface-elevated/80 px-3 py-1 text-xs font-semibold tracking-wide text-accent shadow-sm"
           >
-            <Sparkles size={14} className="text-neon-purple" />
+            <Sparkles size={14} />
             {profile.title}
           </motion.p>
 
@@ -55,11 +55,11 @@ export default function Hero() {
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.08 }}
-            className="font-display text-[clamp(2.6rem,8vw,5.2rem)] leading-[0.95] font-bold tracking-tight text-white"
+            className="font-display text-[clamp(2.6rem,8vw,5rem)] leading-[1.02] font-bold text-ink"
           >
             {profile.name.split(" ")[0]}
             <br />
-            <span className="bg-gradient-to-r from-cyan via-white to-neon-purple bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-accent via-accent-deep to-violet-500 bg-clip-text text-transparent">
               {profile.name.split(" ").slice(1).join(" ")}
             </span>
           </motion.h1>
@@ -68,7 +68,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.18 }}
-            className="mt-5 max-w-lg text-base leading-relaxed text-zinc-400 sm:text-lg"
+            className="mt-5 max-w-lg text-base leading-relaxed text-ink-muted sm:text-lg"
           >
             {profile.tagline}
           </motion.p>
@@ -81,7 +81,7 @@ export default function Hero() {
           >
             <a
               href="#projects"
-              className="group relative inline-flex items-center gap-2 overflow-hidden rounded-md bg-cyan px-5 py-3 font-mono text-sm font-semibold tracking-wide text-void transition hover:shadow-[0_0_28px_rgba(0,240,255,0.45)]"
+              className="group inline-flex items-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-semibold text-white shadow-[0_14px_30px_-14px_rgba(99,102,241,0.9)] transition hover:bg-accent-deep"
             >
               View projects
               <ArrowDown
@@ -91,7 +91,7 @@ export default function Hero() {
             </a>
             <a
               href="#contact"
-              className="inline-flex items-center rounded-md border border-neon-purple/50 bg-neon-purple/10 px-5 py-3 font-mono text-sm tracking-wide text-white transition hover:border-neon-purple hover:bg-neon-purple/20 hover:shadow-[0_0_24px_rgba(138,43,226,0.35)]"
+              className="inline-flex items-center rounded-full border border-line bg-surface-elevated px-5 py-3 text-sm font-semibold text-ink shadow-sm transition hover:border-accent/40 hover:text-accent"
             >
               Contact
             </a>
@@ -103,16 +103,12 @@ export default function Hero() {
         </div>
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.92 }}
+          initial={{ opacity: 0, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.25 }}
           className="relative mx-auto flex w-full justify-center"
         >
-          <div
-            aria-hidden
-            className="absolute inset-8 rounded-full bg-[radial-gradient(circle,rgba(0,240,255,0.18),transparent_65%)] blur-xl"
-          />
-          <NeonScene />
+          <SoftGeometry />
         </motion.div>
       </div>
     </section>

@@ -2,7 +2,7 @@ export const profile = {
   name: "Muhammad Elshan",
   title: "Full-Stack Developer",
   tagline:
-    "Crafting luminous digital experiences — from neon UIs to resilient APIs.",
+    "Crafting polished digital products — from refined interfaces to resilient APIs.",
   email: "muhammad.elshan@devmail.com",
   phone: "+994 50 123 45 67",
   location: "Baku, Azerbaijan",
@@ -12,7 +12,7 @@ export const profile = {
     email: "mailto:muhammad.elshan@devmail.com",
   },
   about: [
-    "I build end-to-end products where interface polish meets solid systems thinking. From interactive frontends to scalable backend services, I care about performance, accessibility, and that electric first impression.",
+    "I build end-to-end products where interface polish meets solid systems thinking. From interactive frontends to scalable backend services, I care about performance, accessibility, and a refined first impression.",
     "My toolkit spans modern React/Next.js, Node ecosystems, cloud-native deploys, and motion-driven UX — always with an eye for craft.",
   ],
 };

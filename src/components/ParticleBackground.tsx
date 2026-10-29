@@ -30,7 +30,7 @@ export default function ParticleBackground() {
 
     const countForSize = () => {
       const area = width * height;
-      const base = Math.min(90, Math.floor(area / 18000));
+      const base = Math.min(70, Math.floor(area / 22000));
       return reduced ? Math.floor(base * 0.35) : base;
     };
 
@@ -48,9 +48,9 @@ export default function ParticleBackground() {
       particles = Array.from({ length: n }, () => ({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.35,
-        vy: (Math.random() - 0.5) * 0.35,
-        r: Math.random() * 1.6 + 0.6,
+        vx: (Math.random() - 0.5) * 0.28,
+        vy: (Math.random() - 0.5) * 0.28,
+        r: Math.random() * 1.8 + 0.8,
       }));
     };
 
@@ -64,8 +64,7 @@ export default function ParticleBackground() {
 
     const draw = () => {
       ctx.clearRect(0, 0, width, height);
-
-      const linkDist = reduced ? 90 : 130;
+      const linkDist = reduced ? 85 : 120;
 
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
@@ -78,20 +77,20 @@ export default function ParticleBackground() {
         const dxm = p.x - mouse.x;
         const dym = p.y - mouse.y;
         const dm = Math.hypot(dxm, dym);
-        if (dm < 160) {
-          p.vx += (dxm / dm) * 0.02;
-          p.vy += (dym / dm) * 0.02;
+        if (dm < 150) {
+          p.vx += (dxm / dm) * 0.015;
+          p.vy += (dym / dm) * 0.015;
         }
 
         const speed = Math.hypot(p.vx, p.vy);
-        if (speed > 0.8) {
+        if (speed > 0.65) {
           p.vx *= 0.98;
           p.vy *= 0.98;
         }
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(0, 240, 255, 0.7)";
+        ctx.fillStyle = "rgba(99, 102, 241, 0.45)";
         ctx.fill();
 
         for (let j = i + 1; j < particles.length; j++) {
@@ -100,8 +99,8 @@ export default function ParticleBackground() {
           const dy = p.y - q.y;
           const dist = Math.hypot(dx, dy);
           if (dist < linkDist) {
-            const alpha = (1 - dist / linkDist) * 0.35;
-            ctx.strokeStyle = `rgba(138, 43, 226, ${alpha})`;
+            const alpha = (1 - dist / linkDist) * 0.22;
+            ctx.strokeStyle = `rgba(99, 102, 241, ${alpha})`;
             ctx.lineWidth = 1;
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
@@ -110,9 +109,9 @@ export default function ParticleBackground() {
           }
         }
 
-        if (dm < 180) {
-          const alpha = (1 - dm / 180) * 0.45;
-          ctx.strokeStyle = `rgba(0, 240, 255, ${alpha})`;
+        if (dm < 170) {
+          const alpha = (1 - dm / 170) * 0.28;
+          ctx.strokeStyle = `rgba(79, 70, 229, ${alpha})`;
           ctx.beginPath();
           ctx.moveTo(p.x, p.y);
           ctx.lineTo(mouse.x, mouse.y);
@@ -141,7 +140,7 @@ export default function ParticleBackground() {
     <canvas
       ref={canvasRef}
       aria-hidden
-      className="pointer-events-none fixed inset-0 z-0 opacity-70"
+      className="pointer-events-none fixed inset-0 z-0 opacity-80"
     />
   );
 }

@@ -43,7 +43,7 @@ export default function CursorRing() {
   return (
     <motion.div
       aria-hidden
-      className="pointer-events-none fixed left-0 top-0 z-[100] mix-blend-difference"
+      className="pointer-events-none fixed left-0 top-0 z-[100]"
       style={{
         x: sx,
         y: sy,
@@ -53,13 +53,16 @@ export default function CursorRing() {
     >
       <motion.div
         animate={{
-          width: hovering ? 52 : 28,
-          height: hovering ? 52 : 28,
+          width: hovering ? 48 : 26,
+          height: hovering ? 48 : 26,
           borderColor: hovering
-            ? "rgba(0,240,255,0.95)"
-            : "rgba(138,43,226,0.85)",
+            ? "rgba(99,102,241,0.9)"
+            : "rgba(15,23,42,0.35)",
+          backgroundColor: hovering
+            ? "rgba(99,102,241,0.08)"
+            : "rgba(255,255,255,0.15)",
         }}
-        className="rounded-full border-2 shadow-[0_0_18px_rgba(0,240,255,0.45)]"
+        className="rounded-full border shadow-[0_0_0_1px_rgba(255,255,255,0.4)] backdrop-blur-[1px]"
         transition={{ type: "spring", stiffness: 380, damping: 28 }}
       />
     </motion.div>

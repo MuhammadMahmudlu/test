@@ -25,12 +25,12 @@ export default function Experience() {
         <div ref={ref} className="relative ml-2 sm:ml-4">
           <div
             aria-hidden
-            className="absolute top-2 left-[7px] h-[calc(100%-1rem)] w-px bg-white/10 sm:left-[11px]"
+            className="absolute top-2 left-[7px] h-[calc(100%-1rem)] w-px bg-line sm:left-[11px]"
           />
           <motion.div
             aria-hidden
             style={{ height: lineHeight }}
-            className="absolute top-2 left-[7px] w-px origin-top bg-gradient-to-b from-cyan via-neon-purple to-cyan shadow-[0_0_12px_rgba(0,240,255,0.6)] sm:left-[11px]"
+            className="absolute top-2 left-[7px] w-px origin-top bg-gradient-to-b from-accent via-violet-500 to-accent sm:left-[11px]"
           />
 
           <ol className="space-y-10">
@@ -45,33 +45,33 @@ export default function Experience() {
               >
                 <span
                   aria-hidden
-                  className="absolute top-1.5 left-0 flex h-4 w-4 items-center justify-center rounded-full border border-cyan bg-void shadow-[0_0_14px_rgba(0,240,255,0.55)] sm:h-6 sm:w-6"
+                  className="absolute top-1.5 left-0 flex h-4 w-4 items-center justify-center rounded-full border-2 border-accent bg-surface-elevated shadow-[0_0_0_4px_rgba(99,102,241,0.12)] sm:h-6 sm:w-6"
                 >
-                  <span className="h-1.5 w-1.5 rounded-full bg-cyan sm:h-2 sm:w-2" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-accent sm:h-2 sm:w-2" />
                 </span>
 
                 <div
                   data-cursor="interactive"
-                  className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition hover:border-cyan/30 hover:shadow-[0_0_28px_rgba(0,240,255,0.08)] sm:p-6"
+                  className="rounded-3xl border border-line bg-surface-elevated p-5 shadow-[0_14px_40px_-28px_rgba(15,23,42,0.35)] transition hover:border-accent/30 hover:shadow-[0_20px_44px_-24px_rgba(99,102,241,0.28)] sm:p-6"
                 >
                   <div className="flex flex-wrap items-baseline justify-between gap-2">
-                    <h3 className="font-display text-xl text-white sm:text-2xl">
+                    <h3 className="font-display text-xl text-ink sm:text-2xl">
                       {job.role}
                     </h3>
-                    <span className="font-mono text-xs text-cyan">
+                    <span className="rounded-full bg-accent-soft px-2.5 py-1 font-mono text-xs font-medium text-accent-deep">
                       {job.period}
                     </span>
                   </div>
-                  <p className="mt-1 text-sm text-neon-purple">
+                  <p className="mt-1 text-sm font-medium text-accent">
                     {job.company} · {job.location}
                   </p>
                   <ul className="mt-4 space-y-2">
                     {job.highlights.map((h) => (
                       <li
                         key={h}
-                        className="flex gap-2 text-sm leading-relaxed text-zinc-400"
+                        className="flex gap-2 text-sm leading-relaxed text-ink-muted"
                       >
-                        <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-cyan" />
+                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
                         {h}
                       </li>
                     ))}
