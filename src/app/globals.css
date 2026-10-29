@@ -77,6 +77,20 @@ body {
   letter-spacing: -0.03em;
 }
 
+@keyframes aurora-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.aurora-spin {
+  animation: aurora-spin 18s linear infinite;
+}
+
+.aurora-spin-rev {
+  animation: aurora-spin 22s linear infinite reverse;
+}
+
 .soft-grid {
   background-image:
     linear-gradient(to right, rgba(15, 23, 42, 0.035) 1px, transparent 1px),
