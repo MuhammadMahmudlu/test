@@ -128,8 +128,9 @@ export default function ProjectCard({ project, index }: Props) {
               <div className="mt-6 flex gap-2">
                 <a
                   href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  {...(project.liveUrl.startsWith("http")
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : {})}
                   className="inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-accent py-2.5 text-sm font-semibold text-white"
                 >
                   <ExternalLink size={14} /> Live demo
@@ -214,8 +215,9 @@ export default function ProjectCard({ project, index }: Props) {
             </button>
             <a
               href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+              {...(project.liveUrl.startsWith("http")
+                ? { target: "_blank", rel: "noopener noreferrer" }
+                : {})}
               className="inline-flex items-center gap-1.5 rounded-full border border-line px-3 py-1.5 text-xs font-medium text-ink-muted transition hover:border-accent/40 hover:text-accent"
             >
               <ExternalLink size={12} /> Live

@@ -7,7 +7,7 @@ export const profile = {
   phone: "+994 50 123 45 67",
   location: "Baku, Azerbaijan",
   socials: {
-    github: "https://github.com",
+    github: "https://github.com/MuhammadMahmudlu",
     linkedin: "https://linkedin.com",
     email: "mailto:muhammad.elshan@devmail.com",
   },
@@ -217,6 +217,7 @@ export const experience = [
 export const navLinks = [
   { href: "#about", label: "About" },
   { href: "#projects", label: "Projects" },
+  { href: "/apps", label: "Apps" },
   { href: "#skills", label: "Skills" },
   { href: "#experience", label: "Experience" },
   { href: "#contact", label: "Contact" },
