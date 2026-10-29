@@ -66,28 +66,35 @@ export async function fetchDynamicProjects(): Promise<Project[]> {
 
   try {
     const res = await fetch(
-      `https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=20`,
+      `https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=30`,
       {
         headers: {
           Accept: "application/vnd.github+json",
           "User-Agent": "elshan-portfolio",
         },
-        next: { revalidate: 3600 },
+        cache: "no-store",
       },
     );
 
-    if (!res.ok) return local;
+    if (!res.ok) {
+      console.warn("[projects] GitHub API status", res.status);
+      return local;
+    }
 
     const repos = (await res.json()) as RemoteRepo[];
+    if (!Array.isArray(repos)) {
+      console.warn("[projects] unexpected GitHub payload");
+      return local;
+    }
+
     const remote = repos
       .filter((r) => !r.fork && !EXCLUDE.has(r.name))
       .slice(0, 8)
       .map(remoteRepoToProject);
 
-    // Local mini-apps first (featured demos), then GitHub repos
-    const remoteIds = new Set(remote.map((p) => p.id));
-    return [...local, ...remote.filter((p) => !remoteIds.has(p.id))];
-  } catch {
+    return [...local, ...remote];
+  } catch (err) {
+    console.warn("[projects] GitHub fetch failed", err);
     return local;
   }
 }
