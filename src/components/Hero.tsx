@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import { profile } from "@/data/portfolio";
@@ -73,7 +74,10 @@ export default function Hero() {
               className="group inline-flex items-center gap-2 bg-crimson px-5 py-3 text-sm font-bold tracking-wide text-white uppercase transition hover:bg-crimson-bright"
             >
               View work
-              <ArrowDown size={16} className="transition group-hover:translate-y-0.5" />
+              <ArrowDown
+                size={16}
+                className="transition group-hover:translate-y-0.5"
+              />
             </a>
             <a
               href="#contact"
@@ -90,18 +94,23 @@ export default function Hero() {
           transition={{ delay: 0.25 }}
           className="relative border border-line bg-charcoal/80 p-5 backdrop-blur-sm sm:p-6"
         >
-          {/* Portrait cutout placeholder framed by type */}
-          <div className="relative mb-6 overflow-hidden border border-line bg-elevated">
-            <div className="aspect-[4/5] w-full bg-[linear-gradient(160deg,#141414_0%,#0a0a0a_45%,#1a0505_100%)]">
-              <div className="absolute inset-0 flex items-end justify-center">
-                <div className="relative h-[88%] w-[70%]">
-                  <div className="absolute inset-x-[18%] top-[8%] h-[28%] rounded-full bg-gradient-to-b from-neutral-500 to-neutral-700" />
-                  <div className="absolute inset-x-[8%] top-[32%] h-[70%] rounded-t-[42%] bg-gradient-to-b from-neutral-600 via-neutral-800 to-[#1a0808]" />
-                  <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(5,5,5,0.85),transparent_45%)]" />
-                </div>
-              </div>
-              <p className="absolute bottom-3 left-3 font-mono text-[10px] tracking-[0.2em] text-crimson uppercase">
-                Portrait · Placeholder
+          <div className="relative mb-6 overflow-hidden border border-crimson/30 bg-elevated shadow-[0_0_40px_rgba(220,38,38,0.12)]">
+            <div className="relative aspect-[4/5] w-full">
+              <Image
+                src="/elshan-portrait.png"
+                alt="Muhammad Elshan — Full-Stack Developer"
+                fill
+                priority
+                sizes="(max-width: 1024px) 90vw, 380px"
+                className="object-cover object-[center_18%] grayscale contrast-125"
+              />
+              {/* Crimson editorial wash + bottom fade into type */}
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,rgba(5,5,5,0.92)_0%,transparent_42%),linear-gradient(120deg,rgba(220,38,38,0.18),transparent_55%)] mix-blend-normal"
+              />
+              <p className="absolute bottom-3 left-3 z-10 font-mono text-[10px] tracking-[0.22em] text-crimson uppercase">
+                Muhammad Elshan
               </p>
             </div>
           </div>
